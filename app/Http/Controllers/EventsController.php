@@ -67,11 +67,7 @@ class EventsController extends Controller
        return 'index';
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
         return 'create';
@@ -101,26 +97,16 @@ class EventsController extends Controller
         return 'store';
     }
     
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+ 
     public function show($id)
     {
         return 'show';
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit($id)
     {
-        return 'edit';
+        return 'edit it';
     }
 
     /**
