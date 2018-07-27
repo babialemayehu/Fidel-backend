@@ -70,7 +70,7 @@ class EventsController extends Controller
 
     public function create()
     {
-        return 'create';
+        return 'crasdfeate';
     }
 
     private function newEvent($type, $date, $from, $to, $session_id, $discription = ""){
