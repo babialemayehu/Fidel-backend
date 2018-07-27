@@ -106,7 +106,7 @@ class EventsController extends Controller
 
     public function edit($id)
     {
-        return 'edit it';
+        return 'editast';
     }
 
     /**
