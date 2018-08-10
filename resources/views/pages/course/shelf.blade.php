@@ -4,7 +4,7 @@
         <div class="row">
             <form class="form">
                 {!!'<script>var $self_token="'.csrf_token().'";</script>'!!}
-                <div class="input-group" style="margin-left:5%;margin-right:2%">
+                <div class="input-group float-upload" style="margin-left:5%;margin-right:2%">
                     <span class="input-group-addon" style="padding:0px;background-color:transparent;border:none;border-radius:0px" >
                         <input type="text" class="form-control" placeholder="Search file" oninput="search(this)">
                         <button type="submit" class="btn btn-default" onclick="search($(parents('div>input')))" 
@@ -34,9 +34,9 @@
     @endif
 </div>
 <script>
-//
+
 $(document).ready(function(){
-   if(role = 1)
+   if(role == 1)
         $(".ajax-upload-dragdrop").find(".ajax-file-upload").remove(); 
 
 });

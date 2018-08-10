@@ -1296,11 +1296,13 @@
 
                 var box = container.find(".conainer.text-center");
                 box.html("<h2>No Files</h2>");
-                if (role == 2 || role == 23)
-                    body.html("<h2>Drag & dri </h2>");
+                console.log("====>"+role); 
+                if (role == 2 || role == 23){
+                    box.append("<h2>Drag & drop </h2>");
+                }
                 box.css("border", "4px  dashed gray");
                 box.css("opacity", "0.5");
-                box.css("padding", "2em");
+                box.css("padding", "3em");
             }
         }
 

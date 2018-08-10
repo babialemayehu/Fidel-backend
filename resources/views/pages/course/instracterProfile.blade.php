@@ -8,8 +8,8 @@
             <li>{{ucfirst($instracter_profile->department)}}</li>
             <li><i class="fa fa-id-card color text-uppercase"></i>{{ucfirst($instracter_profile->regId)}}</li>
         </ul>
-        <hr>
-        <ul id="more-view" class="list-group text-left text-capitalize" style="list-style:none" >
+        <hr style="margin: 3px">
+        <ul id="more-view" class="list-group text-left text-capitalize collapse" style="list-style:none">
             <li><strong>Birth Day:</strong><span id=dob>{!!'<script>$("#dob").text(" "+dateString("'!!}{{($instracter_profile->birthDate)}}{!!'"));</script>'!!}</span></li>
             <li><strong>Gender:</strong> {{ucfirst($instracter_profile->gender)}}</li>
             <li><strong>Nationality:</strong> {{ucfirst($instracter_profile->nationality)}} </li>
@@ -29,6 +29,22 @@
                 <span id="hide" >Hide <i class="fa fa-caret-up"></i></span>
             </center>
         </ul>
-        <span id="view" >View more <span class='caret'></span></span>
+        <p style="cursor: pointer">
+            <b id="more-view-btn" data-toggle="collapse" data-target="#more-view">
+                Show <span class="fa fa-angle-down"></span>
+            </b>
+        </p>
+
     </div>
 </div>
+<script>
+    $(document).ready(function(){
+        $("#more-view").collapse("hide");
+        $("#more-view").on("hide.bs.collapse", function(){
+            $("#more-view-btn").html('Show <span class="fa fa-angle-down"></span>');
+        });
+        $("#more-view").on("show.bs.collapse", function(){
+            $("#more-view-btn").html('Hide <span class="fa fa-angle-up"></span>');
+        });
+    });
+</script>

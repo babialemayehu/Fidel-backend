@@ -18,7 +18,7 @@ class AppServiceProvider extends ServiceProvider
     {
         Schema::defaultStringLength(191);
         View::composer('*',function($view){
-            $websiteTitle = Html::where('title','websiteTitle')->first()->value;
+            $websiteTitle = "Fidel";
             $view->with('websiteTitle',$websiteTitle);
         });
     }

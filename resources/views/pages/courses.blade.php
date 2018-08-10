@@ -21,14 +21,14 @@
         </div>
     </div>
     <div class="col-md-4" style="padding-right: 0.7em">
-        <div class="jumbotron" id=question >
+        <div class="jumbotron" id="question" >
            @include("pages.course.student.question")
         </div>
-        <div class="jumbotron" id=request >
+        <div class="jumbotron" id="request" >
             @include("pages.course.student.request")
         </div>
         @if($role == '2')
-            <div class="jumbotron" id=request >
+            <div class="jumbotron" id="request" >
                 @include("pages.course.teacher.weeklySchedule")
             </div>
         @endif

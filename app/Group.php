@@ -8,7 +8,7 @@ class Group extends Model
 {
     protected $fillable = ['user_id','name','catagory'];
     public function user_group(){
-        return $this->hasMany('App\user_group');
+        return $this->hasMany('App\User_group');
     }
     public function _class(){
         return $this->hasOne('App\_Class');

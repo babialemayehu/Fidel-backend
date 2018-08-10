@@ -84,6 +84,10 @@ ul.list-group {
     border-radius: 1px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     width: 500px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    margin-left: auto; 
+    margin-right: auto; 
 }
 .ajax-file-upload-statusbar .ajax-file-upload-filename,
 .ajax-file-upload-statusbar .ajax-file-upload-progress{
@@ -100,8 +104,15 @@ ul.list-group {
 .ajax-file-upload-statusbar .ajax-file-upload-progress,
 .ajax-file-upload-statusbar .ajax-file-upload-bar{
     border-radius: none; 
-     width: 95%;
-      height: 4px;
+    width: 95%;
+    height: 4px;
+}
+.float-upload .ajax-file-upload-container{
+    position: fixed;
+    bottom: 0px; 
+    right: 0px; 
+    z-index: 9000; 
+    background-color: rgba(255, 255, 255, 0.8);
 }
 .table>tbody>tr>td.today {
     border-left: 0px solid rgba(27, 157, 116, 0.8);
@@ -176,7 +187,7 @@ ul.list-group {
     border-bottom-color: #aca;
 }
 
-noti-li>a,
+#noti-li>a,
 #noti-dropdown>.container dd {
     width: 100% !important;
     word-break: keep-all !important;
@@ -738,7 +749,7 @@ td.inactive {
     border-top: 3px solid rgba(27, 167, 157, 1);
 }
 
-#assignment. #submited-assignments .nav li.active {
+#assignment #submited-assignments .nav li.active {
     border: 1px 1px 0px 1px solid #ccc;
 }
 
@@ -824,7 +835,6 @@ td.inactive {
     padding: 0px;
     margin-top: 0px;
 }
-
 
 /* VALIDATION */
 
