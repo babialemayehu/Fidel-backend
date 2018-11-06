@@ -21,7 +21,8 @@ class User extends Authenticatable
         'nationality',
         'gender',
         'college_id',
-        'department_id'
+        'department_id',
+        'setup_state'
     ];
     protected $hidden = [
         'password', 'remember_token',

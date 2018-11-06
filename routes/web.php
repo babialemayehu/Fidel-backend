@@ -84,3 +84,39 @@ Route::group(['middleware' => ['auth']], function () {
 Auth::routes();
 
 Route::get('/api/calender/{month?}/{year?}','calenderController@index');
+
+
+Route::middleware(['cors'])
+->prefix('api')
+->group( function () {
+    Route::prefix('json')
+    ->group(function(){ 
+
+        Route::group(['prefix' => 'get'], function(){
+            Route::group(['prefix' => 'user','namespace' => 'UserManagment'], function(){
+                Route::get('by role/{role}', 'AccountController@getByRole'); 
+
+                Route::group(['prefix' => 'students'], function(){
+                    
+                }); 
+            }); 
+        });
+       
+        Route::prefix('post')
+        ->group( function(){
+            Route::group(['prefix' => 'user','namespace' => 'UserManagment'], function(){
+                Route::post('register', 'RegistrationController@register'); 
+            }); 
+        }); 
+
+        Route::group(['prefix' => 'update', 'namespace' => 'UserManagment'], function(){
+            Route::group(['prefix' => 'change'], function(){
+                Route::put('password/{option?}', 'AccountController@changePassword'); 
+            }); 
+        }); 
+
+        Route::group(['prefix' => 'delete'], function(){
+
+        }); 
+    }); 
+}); 

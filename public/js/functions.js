@@ -1465,3 +1465,33 @@
 
             });
         }
+
+        // CHAGE PASSWORD
+
+        function changePassword(form){
+            $form = $(form); 
+            $alert = $form.find('.alert'); 
+            $data = {
+                _method: 'PUT', 
+                password: $form.find('[ name="password"]').val(), 
+                confirm: $form.find('[name="confirm"]').val()
+            }
+            if($data.password.length < 6){
+                faildAlert($alert, 'The password is too short, it has to be at list 6 character long.'); 
+            }
+            else if($data.password !== $data.confirm){
+                faildAlert($alert , 'Confirmation dose not match'); 
+                return false; 
+            }
+           waitingAlert($alert , 'Changing your password, please wait...'); 
+           $.post('/api/json/update/change/password/first time', $data)
+           .done(function(){
+                successDialog('You have successfully changed your password. Please use this password next time you login.'); 
+                $('#setup').modal('hide'); 
+           }).fail(function(e){
+                if(e.status == 406){        
+                    faildAlert($alert , 'Confirmation dose not match'); 
+                }
+           }); 
+            return false; 
+        }

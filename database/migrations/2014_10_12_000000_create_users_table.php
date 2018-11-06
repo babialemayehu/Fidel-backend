@@ -27,6 +27,7 @@ class CreateUsersTable extends Migration
             $table->char('gender',2);
             $table->integer('college_id');
             $table->integer('department_id');
+            $table->integer('setup_state')->default(0); 
             $table->rememberToken();
             $table->timestamps();
         });
