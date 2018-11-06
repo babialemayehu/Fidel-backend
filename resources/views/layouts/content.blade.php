@@ -26,11 +26,11 @@
 
                                     <div class="row" style="margin-bottom: 24px">
                                         <label for="password">New password</label>
-                                        <input class="form-control" name="password"/>
+                                        <input type='password' class="form-control" name="password"/>
                                     </div>
                                     <div class="row" style="margin-bottom: 24px">
                                         <label for="confirm">Confirm password</label>
-                                        <input class="form-control" name="confirm"/>
+                                        <input type='password' class="form-control" name="confirm"/>
                                     </div>
                             
                                     <div class="row" style="margin-bottom: 24px">

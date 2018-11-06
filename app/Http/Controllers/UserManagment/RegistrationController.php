@@ -17,7 +17,7 @@ class RegistrationController extends Controller
         return User::find(7); 
     }
     public function password($email){
-        $password = Str::random(6); 
+        $password = strtolower(Str::random(6)); 
         Mail::to($email)->send(new Password($password)); 
         return bcrypt($password); 
     }
@@ -59,7 +59,7 @@ class RegistrationController extends Controller
             'birthDate' => $request->birthDate, 
             'nationality' => $request->nationality, 
             'gender' => $request->gender,
-            'phole' => $request->phone, 
+            'phone' => $request->phone, 
             'email' => strtolower($request->email), 
             'password' => $this->password($request->email),
             'college_id' => $this->_auth()->department()->first()->id,
@@ -72,4 +72,9 @@ class RegistrationController extends Controller
         return $user; 
     }
 
+    public function reset(\App\User $user){
+        $user->password = $this->password($user->email); 
+        $user->save(); 
+        return 'true'; 
+    }
 }

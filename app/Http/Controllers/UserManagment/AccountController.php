@@ -28,9 +28,31 @@ class AccountController extends Controller
     public function getByRole($role){
         $auth = User::find(7); 
 
-        $students = Role::find($role)->first()->user(); 
+        $students = Role::find($role)->user(); 
         $students = $students->where('department_id', $auth->department_id);
 
         return $students->get(); 
+    }
+
+    public function update( \App\User $user, Request $request){
+        $user = $user->update($request->all()); 
+        return $user->first(); 
+    }
+
+    public function delete(\App\User $user, Request $request){
+        $user->delete(); 
+        return $user; 
+    }
+
+    public function idExist($regId){
+        return (User::where('regId', $regId)->get()->count() > 0)? 'true': 'false'; 
+    }
+
+    public function phoneExist($phone){
+        return (User::where('phone', $phone)->get()->count() > 0)? 'true': 'false'; 
+    }
+    
+    public function emailExist($email){
+        return (User::where('email', $email)->get()->count() > 0)? 'true': 'false'; 
     }
 }

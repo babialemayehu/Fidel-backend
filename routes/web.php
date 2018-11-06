@@ -95,9 +95,14 @@ Route::middleware(['cors'])
         Route::group(['prefix' => 'get'], function(){
             Route::group(['prefix' => 'user','namespace' => 'UserManagment'], function(){
                 Route::get('by role/{role}', 'AccountController@getByRole'); 
-
                 Route::group(['prefix' => 'students'], function(){
                     
+                }); 
+                
+                Route::group(['prefix' => 'validate'], function(){
+                    Route::get('regId exist/{regId}', 'AccountController@idExist'); 
+                    Route::get('phone exist/{phone}', 'AccountController@phoneExist'); 
+                    Route::get('email exist/{email}', 'AccountController@emailExist'); 
                 }); 
             }); 
         });
@@ -110,13 +115,18 @@ Route::middleware(['cors'])
         }); 
 
         Route::group(['prefix' => 'update', 'namespace' => 'UserManagment'], function(){
+            Route::put('user/{user}', 'AccountController@update'); 
             Route::group(['prefix' => 'change'], function(){
                 Route::put('password/{option?}', 'AccountController@changePassword'); 
+            }); 
+
+            Route::group(['prefix' => 'user'], function(){
+                Route::put('password/reset/{user}', 'RegistrationController@reset'); 
             }); 
         }); 
 
         Route::group(['prefix' => 'delete'], function(){
-
+            Route::delete('user/{user}', 'AccountController@delete'); 
         }); 
     }); 
 }); 
