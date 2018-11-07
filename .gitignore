@@ -11,8 +11,8 @@
 # Homestead.yaml
 # Homestead.json
 # /.vagrant
-# storage
-# storage/*
+storage
+storage/*
 # bootstrap
 # bootstrap/*
 
