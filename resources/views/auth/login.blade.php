@@ -23,7 +23,7 @@
             var h = $(window).height();
             var _img;
             if(w>h)
-                _img = $('<img/>',{src: '/img/landscape/1.jpg'}).appendTo('.active');
+                _img = $('<img/>',{src: '/img/landscape/5.jpg'}).appendTo('.active');
             else
                 _img = $('<img/>',{src: '/img/portrait/4.jpg'}).appendTo('.active');   
             $(window).on('resize',function(){
@@ -32,7 +32,7 @@
                 h = $(window).height();
                 console.log(w + ' -> ' + h);
                 if((w-100)>h)
-                    _img = $('<img/>',{src: '/img/landscape/4.jpg'}).appendTo('.active');
+                    _img = $('<img/>',{src: '/img/landscape/5.jpg'}).appendTo('.active');
                 else
                     _img = $('<img/>',{src: '/img/portrait/4.jpg'}).appendTo('.active');           
             });
