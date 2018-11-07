@@ -22,7 +22,6 @@
         <nav class="navbar navbar-default navbar-static-top" style="background-color:rgba(27, 157, 116, 1);">
             <div class="container">
                 <div class="navbar-header">
-                    <!-- Branding Image -->
                     <a href="URL::to('/#/')" class="navbar-brand" style="color:white;font-size:1.6em;padding:6px" >
                         <img src="{{ asset('/img/logo-inverse.png') }}" style="width:25px;display:inline"> 
                         <span>{{str_replace('S','',$websiteTitle)}}</span>
@@ -30,7 +29,6 @@
                 </div>
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
-                    <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
                         &nbsp;
                     </ul>
