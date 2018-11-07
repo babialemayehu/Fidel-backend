@@ -743,10 +743,16 @@ var UserRegComponent = /** @class */ (function () {
         var _this = this;
         this.loading = true;
         if (this.isRegister) {
-            this._user.register(this.form.value).subscribe(function (_responce) { _this.loading = false; }, function (_error) { _this.loading = false; });
+            this._user.register(this.form.value).subscribe(function (_responce) {
+                _this.loading = false;
+                _this._dialog.close();
+            }, function (_error) { _this.loading = false; });
         }
         else {
-            this._user.update(this.$data.user.id, this.form.value).subscribe(function (_responce) { }, function (_error) { });
+            this._user.update(this.$data.user.id, this.form.value).subscribe(function (_responce) {
+                _this.loading = false;
+                _this._dialog.close();
+            }, function (_error) { _this.loading = false; });
         }
         return false;
     };
