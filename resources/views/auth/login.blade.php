@@ -1,5 +1,6 @@
 @extends('layouts.login')
 @section("content")
+<h1>lkaflkajjsdfjasdokdfopiasdjfoasdfoiasdoijawe oiwawjafwaopjjf</h1>
     <div id="login" class="carousel slide" data-ride="carousel">
          <div class="carousel-inner" role="listbox">
             <div class="item active">
