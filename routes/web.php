@@ -1,7 +1,4 @@
 <?php
-Route::get('/hello', function(){
-    return 'Hello world'; 
-});
 
 Route::get('/login',function(){
     return view('auth.loginAndSignup');
