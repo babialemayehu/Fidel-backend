@@ -64,8 +64,8 @@ class RegistrationController extends Controller
             'phone' => $request->phone, 
             'email' => strtolower($request->email), 
             'password' => $this->password($request->email),
-            'college_id' => $this->_auth()->department()->first()->id,
-            'department_id' => $this->_auth()->collage()->first()->id
+            'college_id' => 1,
+            'department_id' => 1
         ]); 
 
         $this->role($user->id, $request->role); 
