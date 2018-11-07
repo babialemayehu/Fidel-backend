@@ -2,10 +2,9 @@
 Route::get('/hello', function(){
     return 'Hello world'; 
 });
-
-Route::get('/he', function(){
-    return 'Hello world'; 
-});
+Route::get('/hellooo', function(){
+    return 'alsdkfj'; 
+}); 
 Route::get('/login',function(){
     return view('auth.loginAndSignup');
 });
