@@ -1,6 +1,7 @@
 <?php
-Route::get('/page', function(){
-    return 'Hello world'; 
+
+Route::get('/test', function(){
+    return 'Test page'; 
 }); 
 
 Route::get('/login',function(){
