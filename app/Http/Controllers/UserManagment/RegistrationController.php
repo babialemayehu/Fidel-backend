@@ -10,11 +10,11 @@ use Illuminate\Support\Facades\Auth;
 use App\Mail\Password; 
 use App\User;
 use App\User_role; 
-
+use App\Teacher; 
 class RegistrationController extends Controller
 {
     private function _auth(){
-        return User::find(7); 
+        return Auth::user(); 
     }
     public function password($email){
         $password = strtolower(Str::random(6)); 
@@ -31,6 +31,7 @@ class RegistrationController extends Controller
         ]);
     }
 
+
     public function role($user_id, $role_id){
         User_role::create([
             'user_id' => $user_id, 
@@ -40,6 +41,7 @@ class RegistrationController extends Controller
 
     public function register(Request $request){
       //  return $request->all(); 
+    //  return $request->role; 
         $this->validate($request, [
             'regId' => 'required|string|max:14|unique:users', 
             'firstName' => 'required|string|max:30', 
@@ -74,6 +76,7 @@ class RegistrationController extends Controller
 
     public function reset(\App\User $user){
         $user->password = $this->password($user->email); 
+        $auth->setup_state = 0; 
         $user->save(); 
         return 'true'; 
     }

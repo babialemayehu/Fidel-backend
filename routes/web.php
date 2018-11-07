@@ -18,6 +18,12 @@ Route::get('/test',function(){
     return $x->get_student_current_group(6, \App\Http\Controllers\Custom\UserGroup::OTHER);
 });
 Route::group(['middleware' => ['auth']], function () {
+
+    // angular 
+    Route::get('/manage', function(){
+        return view('pages.singlePage.manage'); 
+    }); 
+    
     Route::get('/', 'pagesController@content');
     Route::get('/calander','calenderController@view');
     Route::get("/courses/{id}",'sessionCousesController@getCourses');

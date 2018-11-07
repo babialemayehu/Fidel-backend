@@ -11,7 +11,7 @@
         <link rel="stylesheet" href="/css/jquery-confirm.min.css">
         <link rel="stylesheet" href="/css/handsontable.full.min.css">
         <link rel="stylesheet" href="/css/handsontable.bootstrap.css">
-        <link rel='stylesheet' href="/css/uploadfile.css"/>
+        <link href="http://hayageek.github.io/jQuery-Upload-File/4.0.11/uploadfile.css" rel="stylesheet">
         <link rel="stylesheet" href="/css/app.css" />
         <link rel="stylesheet" href="/css/custom.bootstrap.css" />
         <link rel="stylesheet" href="/css/layout.css" />
@@ -59,7 +59,7 @@
         <script src="js/functions.js"></script>
         {{--  <script src="js/pages.js"></script>  --}}
         <script src="js/handsontable.full.min.js"></script>
-        <script src='js/jquery.uploadfile.min.js'></script>
+        <script src="http://hayageek.github.io/jQuery-Upload-File/4.0.11/jquery.uploadfile.min.js"></script>
         <script src="js/moment.js"></script>
         <script src="js/flatpickr.js"></script>
         <!-- END JS -->

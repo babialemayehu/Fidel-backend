@@ -26,7 +26,7 @@ class AccountController extends Controller
     }
 
     public function getByRole($role){
-        $auth = User::find(7); 
+        $auth = Auth::user(); 
 
         $students = Role::find($role)->user(); 
         $students = $students->where('department_id', $auth->department_id);

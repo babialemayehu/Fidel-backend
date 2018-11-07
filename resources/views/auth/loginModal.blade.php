@@ -16,7 +16,7 @@
                         {{ csrf_field() }}
                         <div class="form-group{{ $errors->has('regId')|| $errors->has('password') ? ' has-error' : '' }}">
                             <label for="regId" class="label">Id or Username</label>
-                                <input id="regId" type="text" class="form-control" name="regId" value="{{ old('regId') }}" required autofocus>
+                                <input id="regId" type="text" class="form-control uppercase" name="regId" value="{{ old('regId') }}" required autofocus>
                         </div>
 
                         <div class="form-group{{ $errors->has('password')|| $errors->has('regId') ? ' has-error' : '' }}">

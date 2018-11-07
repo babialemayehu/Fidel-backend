@@ -1,4 +1,6 @@
 /* INPUT */
+.uppercase{ text-transform: uppercase }
+.capitalize{ text-transform: capitalize }
 
 .form-control,
 .form-control[readonly] {

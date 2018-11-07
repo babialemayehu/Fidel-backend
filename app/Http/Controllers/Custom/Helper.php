@@ -41,7 +41,8 @@ class Helper{
             'pptx'  => 'powerpoint',
             'jpg'   => 'photo',
             'png'   => 'picture',
-            'gif'   => 'picture'
+            'gif'   => 'picture', 
+            'jpeg'  => 'picture'
         ];
         $file = new File;
         $file->size = $fileInstance->getClientSize();

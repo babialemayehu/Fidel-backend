@@ -22,7 +22,7 @@
             <hr>
         </div>
     </div>
-        <ul id="self-files" class="list-group text-center" >
+        <ul id="self-files" class="list-group text-center" style="border: 1px solid red">
             
         </ul>
 </div>
