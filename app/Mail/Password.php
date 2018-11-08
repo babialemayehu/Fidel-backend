@@ -33,7 +33,7 @@ class Password extends Mailable
         return $this
                 ->from('password@fidel.dmu.edu.et')
                // ->text($this->password);
-               ->subject('Welcome to fidel')
+               ->subject('Welcome to Fidel')
                 ->view('mail.firstPassword')
                 ->with('password', $this->password);
     }
