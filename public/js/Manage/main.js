@@ -596,7 +596,7 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 var UserService = /** @class */ (function () {
     function UserService(_http) {
         this._http = _http;
-        this.root = "http://clinic/api/json/";
+        this.root = "/api/json/";
     }
     UserService.prototype.register = function (user) {
         var URL = this.root + "post/user/register";
