@@ -81,8 +81,7 @@ class RegistrationController extends Controller
                 'setup_state' => 0
             ]); 
             return 'true'; 
-        }
-       
-        return 'false'; 
+        }else
+            return 'false'; 
     }
 }
