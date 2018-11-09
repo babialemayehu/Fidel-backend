@@ -75,9 +75,14 @@ class RegistrationController extends Controller
     }
 
     public function reset(\App\User $user){
-        $user->password = $this->password($user->email); 
-        $auth->setup_state = 0; 
-        $user->save(); 
-        return 'true'; 
+        if($user != null){
+            $user->update([
+                'password' => $this->password($user->email), 
+                'setup_state' => 0
+            ]); 
+            return 'true'; 
+        }
+       
+        return 'false'; 
     }
 }

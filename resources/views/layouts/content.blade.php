@@ -26,7 +26,7 @@
 
                                     <div class="row" style="margin-bottom: 24px">
                                         <label for="password">New password</label>
-                                        <input type='password' class="form-control" name="password"/>
+                                        <input type='password' autofocus class="form-control" name="password"/>
                                     </div>
                                     <div class="row" style="margin-bottom: 24px">
                                         <label for="confirm">Confirm password</label>
