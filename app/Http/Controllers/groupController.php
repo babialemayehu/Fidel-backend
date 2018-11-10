@@ -79,8 +79,9 @@ class groupController extends Controller
     public function add_members($group_id,$members){
         $members = json_decode($members);
         foreach($members as $member){
-            if(!empty($member)){
-                $user_id =(int)User::where('regId',$member)->get()[0]->id;
+            $student = User::where('regId',$member); 
+            if(!empty($member) && $student != null){
+                $user_id =(int)$student->id;
                 User_group::create([
                     'user_id' => $user_id,
                     'group_id' => $group_id
