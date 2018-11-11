@@ -12,6 +12,6 @@
     </tr>
 @empty
     <tr class=text-center > 
-    <td colspan='3' class='text-danger'><b>NO submit is submited</b></td colspan='3'>
+        <td colspan='3' class='text-danger'><b>NO submit is submited</b></td colspan='3'>
     </tr>
 @endforelse
