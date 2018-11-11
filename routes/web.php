@@ -4,8 +4,7 @@ Route::get('/login',function(){
     return view('auth.loginAndSignup');
 });
 Route::get('/test',function(){
-    $x = new App\Http\Controllers\Custom\UserGroup(); 
-    return $x->get_student_current_group(6, \App\Http\Controllers\Custom\UserGroup::OTHER);
+   return 'test'; 
 });
 Route::group(['middleware' => ['auth']], function () {
 
@@ -64,7 +63,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::resource("mark",'marksController');
         Route::resource("assignment",'assignmentController');
         Route::resource('question','questionController');
-        Route::resource('submitAssignment','submitedassignmentsController');
+        Route::resource('submitAssignment','submitedAssignmentsController');
         Route::resource('shelf','shelfsController');
         Route::resource('markStructure','markStructureController');
         Route::resource('request', 'RequestController'); 

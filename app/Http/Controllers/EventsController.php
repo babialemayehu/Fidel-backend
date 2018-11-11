@@ -7,6 +7,7 @@ use App\Event;
 use App\User;
 use App\Course; 
 use App\Course_session;
+use Carbon\Carbon; 
 
 class EventsController extends Controller
 {
@@ -23,8 +24,17 @@ class EventsController extends Controller
             array_push($sessionsId, $session->id); 
             
         for($i = 1;$i <= $monthLength+1;$i++){
-            $data = Event::whereYear('date','=',($month==11)?$year+1:$year)
-                        ->whereMonth('date','=',($i > $monthLength)?($month+1)%12:$month);
+            
+            if($i > $monthLength){
+                $_month = ($month+1)%12; 
+                if($month+1 > 12){
+                    $year++; 
+                }
+            }else{
+                $_month  = $month; 
+            }
+            $data = Event::whereYear('date','=',$year)
+                        ->whereMonth('date','=',$_month);
             
             $events = $data->whereDay('date','=',($i > $monthLength)?1:$i)->whereIn('session_id', $sessionsId)->get();
 
@@ -73,27 +83,55 @@ class EventsController extends Controller
         return 'cratemdddddm';
     }
 
+    public function isThereEvent($date, $from, $to, $session_id){
+        $eventsInDate = Event::where('date', $date)->where('session_id', $session_id); 
+        
+        if($eventsInDate->get()->count() > 0){
+            foreach($eventsInDate->get() as $event){
+                $from = Carbon::parse($from); 
+                $to = Carbon::parse($to); 
+                $event_from = Carbon::parse($event->from); 
+                $event_to = Carbon::parse($event->to); 
+                if($from->between($event_from, $event_to, true) || $to->between($event_from, $event_to, true)){
+                    return true; 
+                }
+            }
+        }   
+        return false; 
+    }
     private function newEvent($type, $date, $from, $to, $session_id, $discription = ""){
-        $Event = new Event();
-        $Event->user_id = Auth::id();
-        $Event->type = $type;
-        $Event->discription = $discription;
-        $Event->date = $date;
-        $Event->from = $from;
-        $Event->to = $to;
-        $Event->session_id = $session_id;
-        $Event->save();
-        return $Event;
+        if(!$this->isThereEvent($date, $from, $to, $session_id)){
+            $Event = new Event();
+            $Event->user_id = Auth::id();
+            $Event->type = $type;
+            $Event->discription = $discription;
+            $Event->date = $date;
+            $Event->from = $from;
+            $Event->to = $to;
+            $Event->session_id = $session_id;
+            $Event->save();
+            return $Event;
+        }else{
+            return null; 
+        }
     }
     public function store(Request $request)
     {
-        $this->newEvent( $request->input('type'), 
+        $this->validate($request, [
+            'date' => 'required', 
+            'from' => 'required', 
+            'to' => 'required', 
+            'session_id' => 'required'
+        ]); 
+        $event = $this->newEvent( $request->input('type'), 
                     $request->input('date'),
                     $request->input('from'),
                     $request->input('to'),
                     $request->input('session_id'),
                     $request->input('discription'));
-   
+        if($event == null){
+            return response('There is other event in the spacified time.', 406);  
+        }
         return 'store';
     }
     

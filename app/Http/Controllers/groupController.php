@@ -81,7 +81,7 @@ class groupController extends Controller
         foreach($members as $member){
             $student = User::where('regId',$member); 
             if(!empty($member) && $student != null){
-                $user_id =(int)$student->id;
+                $user_id =(int)$student->first()->id;
                 User_group::create([
                     'user_id' => $user_id,
                     'group_id' => $group_id

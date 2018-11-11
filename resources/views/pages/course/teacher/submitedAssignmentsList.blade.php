@@ -6,7 +6,7 @@
         <td title="Name: {{$submit->user}}" id="regId">{{$submit->regId}}</td>
         <td>{{$submit->note}}</td>
         <td><a href="{{$submit->url}}"><i class="fa fa-download"></i>  Download</a></td>
-        @if(!$isLive)
+        @if(!$submit->isLive)
             <td style="width:90px;padding:0px"><input class='form-control mark' type='number' value="{{$submit->mark}}" ></td>
         @endif
     </tr>

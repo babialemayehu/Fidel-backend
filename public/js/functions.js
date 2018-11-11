@@ -62,13 +62,13 @@
             var m = month + 1;
             form.parents('#Event').find('.modal-header h4').text("Add new event");
             form.find('select,input,textarea').not('input[type=submit]').not("input[name=_token]").val("");
-            form.find('[type="date"]').val(year + '-' + ((m < 10) ? '0' + m : m) + '-' + ((day < 10) ? '0' + day : day));
+            form.find('#event_date').val(year + '-' + ((m < 10) ? '0' + m : m) + '-' + ((day < 10) ? '0' + day : day));
             form.find('#event_date').hide().siblings('label').hide();
         }
 
         function editEvent(e) {
             $('#Edit .alert').hide();
-            var dateField = $('#calander #Edit form').find('input[type=date]').show().siblings('label').show();
+            var dateField = $('#calander #Edit form').find('#event_date').show().siblings('label').show();
             var index = $(e.currentTarget).parents('td').find('span').first().text();
             var i = $(e.currentTarget).children('i').text();
             var event = ev[index - 1][i];
@@ -206,7 +206,9 @@
             }
             waitingAlert(alert, w + 'event...');
             $.post('/event' + id, $request, function(data, status) {
-
+                setTimeout(() => {
+                    $('#edit').modal('hide');
+                }, 2000);
             }).done(function() {
                 successAlert(alert, 'You have successfully ' + s + 'event.');
                 newEvent(day);
@@ -219,8 +221,13 @@
                     $('#event_to').val($request.to);
                 }
                 refresh();
-            }).fail(function() {
-                faildAlert(alert, 'Failed to ' + f + 'event.');
+            }).fail(function(e) {
+                if(e.status == 406){
+                    faildAlert(alert, e.responseText);
+                }else if(e.status == 422){
+                    faildAlert(alert, 'All required fields shuld be filled');
+                }else
+                    faildAlert(alert, 'Failed to ' + f + 'event.');
                 alert.show();
             });
         }
@@ -371,6 +378,7 @@
             $('#calander .col-md-8 center').show();
             $.get('/events/' + $qs, function(data) {
                 ev = data;
+                console.log(data); 
             }).done(function() {
                 loadCalender(ev, month, year);
                 var tomorrow = $("#sideBarEvent>tbody").eq(1).find('tr>th').first().text();
@@ -387,7 +395,7 @@
 
         function bindEvents() {
             $('#calander #Edit #Event_form').on('submit', function() {
-                if ($(this).find('input[type=date]').css('display') == 'none')
+                if ($(this).find('#event_date').css('display') == 'none')
                     _event('create');
                 else
                     _event('edit');

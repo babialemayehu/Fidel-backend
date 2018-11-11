@@ -17,7 +17,7 @@ class CreateReqsTable extends Migration
             $table->increments('id');
             $table->integer('session_id');
             $table->string('request'); 
-            $table->string('responce')->nullable; 
+            $table->string('responce')->nullable(); 
             $table->decimal('min_vote'); 
             $table->timestamps();
         });
