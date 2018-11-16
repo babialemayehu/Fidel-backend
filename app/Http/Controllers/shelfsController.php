@@ -52,12 +52,6 @@ class shelfsController extends Controller
         return $request->session;
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public static function formatBytes($size, $precision = 2)
     {
         if ($size > 0) {
