@@ -10,7 +10,10 @@ use App\Http\Controllers\Custom\Helper;
 use App\User;
 use App\Assignment;
 use App\File;
+use App\Course_session; 
 use Carbon\Carbon;
+use App\Http\Controllers\notificationController; 
+
 class assignmentController extends Controller
 {
     /**
@@ -48,7 +51,7 @@ class assignmentController extends Controller
         $markstructure_id = $markstructure->store($request); 
 
         $file = Helper::saveFile($request->file,$request->session_id);
-        Assignment::create([
+        $assignment = Assignment::create([
             'course_session_id' => $request->input('session_id'),
             'value' => $request->input('value'),
             'due' => $request->input('due'),
@@ -57,6 +60,17 @@ class assignmentController extends Controller
             'instraction' => $request->input('instraction'), 
             'mark_structure_id' => $markstructure_id
         ]);
+
+        $cource = Course_session::find($assignment->course_session_id)
+        ->first()->course()->first(); 
+        
+        notificationController::notify('assignment', 
+            'You have new '.$courcep->name.'course assignment',
+            'New '.$cource->name. ' cource assignment was out. 
+            Its due date is '.Carbon::parse($assignment->due)->stringFormat.'
+            and It is out of '.$assignment->value.'%',
+            $assignment->session_id ); 
+
         return $request->file('file');
     }
     public function show($id)

@@ -7,6 +7,8 @@ use App\Http\Controllers\Custom\Helper;
 use Illuminate\Support\Facades\Storage;
 use App\User;
 use App\File;
+use App\Course_session;
+use App\Http\Controllers\notificationController; 
 
 class shelfsController extends Controller
 {
@@ -39,6 +41,14 @@ class shelfsController extends Controller
     public function store(Request $request)
     {
         Helper::saveFile($request->file,$request->session);
+        $cource = Course_session::find($request->session)->first()->course()->first(); 
+
+        notificationController::notify(
+            'file', 
+            'New file was uploaded to the shelf',
+            'New file is uploaded by '.$cource->name.' cource', 
+            $request->session
+        );
         return $request->session;
     }
 

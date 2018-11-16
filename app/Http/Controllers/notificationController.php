@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\ViewComposers\NavbarComposer;
 use App\Notification;
 use App\User;
+use App\Http\Controllers\Sms\SendSms; 
+use App\Course_session; 
 
 class notificationController extends Controller
 {
@@ -47,22 +49,31 @@ class notificationController extends Controller
            return 'create';
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    public static function notify($type, $title, $content, $session_id){
+        $noti = Notification::create([
+            'user_id' => Auth::id(),
+            'type' => $type, 
+            'title' => $title, 
+            'content' => $content, 
+            'session_id' => $session_id
+        ]);
+        SendSms::sendToSession($noti->session_id, $noti->type."\n".$noti->title."\n".$noti->content);
+        return $noti;
+
+    }
+
+    public function test(){
+        
+        return SendSms::send("910867889", "form my pc"); ; 
+    }
     public function store(Request $request)
     {
-        $newNoti= Notification::create([
-                    'user_id' => Auth::id(),
-                    'type' => $request->input('type'),
-                    'title' => $request->input('title'),
-                    'content' => $request->input('content'),
-                    'session_id' => $request->input('target')
-                ]);
-        
+         $newNoti = notificationController::notify(
+                $request->input('type'),
+                $request->input('title'),
+                $request->input('content'),
+                $request->input('target')); 
+                
         return $newNoti->id;
     }
 

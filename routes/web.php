@@ -3,14 +3,25 @@
 Route::get('/login',function(){
     return view('auth.loginAndSignup');
 });
-Route::get('/test',function(){
-   return 'test'; 
-});
+
+Route::get('/home', function(){
+    return redirect('/'); 
+}); 
+Route::get('/test','notificationController@test');
 Route::group(['middleware' => ['auth']], function () {
 
     // angular 
-    Route::get('/manage', function(){
-        return view('pages.singlePage.manage'); 
+    Route::middleware('manege')
+    ->group(function(){
+        Route::get('/manage', function(){
+            return view('pages.singlePage.manage');
+        });
+
+        Route::group(['namespace' => "SmsManagment"], function(){
+            Route::post('/sms', "SmsController@forAll"); 
+            Route::get('/sms', function(){ return view('pages.sms'); }); 
+        }); 
+
     }); 
     
     Route::get('/', 'pagesController@content');
@@ -19,7 +30,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get("/message",function(){
         return view('pages.message');
     });
-    Route::group(["prefix"=>"manege"],function(){
+    Route::group(["prefix"=>"manege",'middleware' => ['manege']],function(){
         Route::resource('course','courseController');
         Route::resource('chapter','chapterController');
         Route::resource("session",'sessionController');
@@ -81,13 +92,16 @@ Auth::routes();
 Route::get('/api/calender/{month?}/{year?}','calenderController@index');
 
 
-Route::middleware(['cors'])
+Route::middleware(['cors','manege'])
 ->prefix('api')
 ->group( function () {
     Route::prefix('json')
     ->group(function(){ 
 
         Route::group(['prefix' => 'get'], function(){
+            Route::group(['prefix' => 'noti', 'namespace' => 'NotiManagment'], function(){
+                Route::get('unseen count', 'NotiController@unseenCount'); 
+            }); 
             Route::group(['prefix' => 'user','namespace' => 'UserManagment'], function(){
                 Route::get('by role/{role}', 'AccountController@getByRole'); 
                 Route::group(['prefix' => 'students'], function(){

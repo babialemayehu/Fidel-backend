@@ -91,6 +91,13 @@ ul.list-group {
     margin-left: auto; 
     margin-right: auto; 
 }
+.ajax-file-upload-container{
+    bottom: 0px; 
+    right: 0px; 
+    position: fixed; 
+    background: white; 
+    z-index: 10000; 
+}
 .ajax-file-upload-statusbar .ajax-file-upload-filename,
 .ajax-file-upload-statusbar .ajax-file-upload-progress{
     width: 95%; 

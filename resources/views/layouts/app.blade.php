@@ -6,7 +6,8 @@
         <title> @yield("pageTitle") </title>
     
         <link rel="stylesheet" href="/css/loading-bar.min.css" />
-        <link rel="stylesheet" href="/css/font-awesome.min.css" />
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+        <link rel="stylesheet" href="/css/font-awesome4.min.css" />
         <link rel="stylesheet" href="/css/flatpickr.min.css"/>
         <link rel="stylesheet" href="/css/jquery-confirm.min.css">
         <link rel="stylesheet" href="/css/handsontable.full.min.css">
@@ -30,21 +31,8 @@
         <script src='#angular'></script>
         <script src='#angular-route'></script> --}}
         <!-- END ON DEPLOYMENT LINK -->
-        <!-- Matomo -->
-        <script type="text/javascript">
-            var _paq = _paq || [];
-            /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
-            _paq.push(['trackPageView']);
-            _paq.push(['enableLinkTracking']);
-            (function() {
-                var u="//fidel.com/analytics/";
-                _paq.push(['setTrackerUrl', u+'piwik.php']);
-                _paq.push(['setSiteId', '1']);
-                var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-                g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
-            })();
-        </script>
-        <!-- End Matomo Code -->
+
+
     </head>
     <body ng-app="skuler">
         @include('layouts.navbar')

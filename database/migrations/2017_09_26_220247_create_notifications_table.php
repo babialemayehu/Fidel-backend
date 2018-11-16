@@ -17,9 +17,10 @@ class CreateNotificationsTable extends Migration
             $table->increments('id');
             $table->integer('user_id');
             $table->string('type',30);
-            $table->string('title',30);
+            $table->string('title',50);
             $table->text('content');
             $table->integer('session_id');
+            $table->integer('seen')->default(0); 
             $table->timestamps();
         });
     }

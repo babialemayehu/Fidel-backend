@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
             @include("pages.profile.personal")
-            @include("pages.profile.acadamic")
+            <!-- @include("pages.profile.acadamic") -->
 
         </div>
         {{--  <div class="col-md-6">

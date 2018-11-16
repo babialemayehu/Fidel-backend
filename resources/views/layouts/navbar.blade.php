@@ -21,7 +21,8 @@
         </a>
         <a href="#/" class="navbar-brand" style="color:white;font-size:1.6em;padding:6px" >
             <img src='/img/logo-inverse.png' style="width:25px;display:inline"> 
-            <span>{{str_replace('S','',$websiteTitle)}}<span class="badge" style="margin: 0px 12px; margin-bottom: 10px; background: white; color:  rgba(27,157,116,0.8)">BETA</span>
+            <span>{{str_replace('S','',$websiteTitle)}}
+            <span class="badge" style="margin: 0px 0px;font-size: 9px; margin-bottom: 10px; background: white; color:  rgba(27,157,116,0.8)">BETA</span>
         </a>
         <div class="navbar-collapse collapse collapse-custom" id='sm-collapse' >
             <ul class="nav navbar-nav navbar-right nav-custom">

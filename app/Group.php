@@ -17,7 +17,7 @@ class Group extends Model
         return $this->hasMany('App\Course_session');
     }
     public function users(){
-        return $this->belongsToMany('App\User', 'User_groups'); 
+        return $this->belongsToMany('App\User', 'user_groups'); 
     }
     public function sessions(){
         return $this->hasMany('App\Sission'); 

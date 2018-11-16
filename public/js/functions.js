@@ -1295,7 +1295,7 @@
                     }
                     var link = $("<a></a>", { href: $data.location }).appendTo(container);
                     var _li = $("<li></li>", { class: "text-center file" }).appendTo(link);
-                    var file = $('<i></i>', { class: "fa fa-file-" + $data.catagory + "-o fa-4x" }).appendTo(_li);
+                    var file = $('<i></i>', { class: "fas fa-" + $data.catagory + " fa-4x" }).appendTo(_li);
                     var title = $("<span></span>", { text: file_name, class: "file_name" }).appendTo(_li);
                     var size = $("<span></span>", { text: $data.size, style: 'display: block' }).appendTo(_li);
                 });

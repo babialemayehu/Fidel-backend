@@ -8,6 +8,7 @@ use App\User;
 use App\Course; 
 use App\Course_session;
 use Carbon\Carbon; 
+use App\Http\Controllers\notificationController; 
 
 class EventsController extends Controller
 {
@@ -110,6 +111,15 @@ class EventsController extends Controller
             $Event->to = $to;
             $Event->session_id = $session_id;
             $Event->save();
+
+            $cource = Course_session::find($Event->session_id)->first()->course()->first(); 
+            notificationController::notify($Event->type,
+                'New '. $Event->type.' scadule of '.$cource->name. ' was scaduled on '
+                .Carbon::parse($Event->date)->toFormattedDateString(),
+                $Event->discription,
+                $Event->session_id
+            );
+
             return $Event;
         }else{
             return null; 
