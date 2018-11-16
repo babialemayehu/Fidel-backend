@@ -1297,7 +1297,7 @@
                     var _li = $("<li></li>", { class: "text-center file" }).appendTo(link);
                     var file = $('<i></i>', { class: "fas fa-" + $data.catagory + " fa-4x" }).appendTo(_li);
                     var title = $("<span></span>", { text: file_name, class: "file_name" }).appendTo(_li);
-                    var size = $("<span></span>", { text: $data.size, style: 'display: block' }).appendTo(_li);
+                    var size = $("<i></i>", { text: $data.size, style: 'display: block' }).appendTo(_li);
                 });
 
             } else {

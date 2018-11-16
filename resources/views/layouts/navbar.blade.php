@@ -83,12 +83,12 @@
                 @endif
                 <li class="dropdown custom-dropdown sm-hide" id="user-icon">
                     <a class="dropdown-toggle" href="" data-toggle="dropdown" style="padding:2px;margin:0.1em auto 0 1.4em;" >
-                        <img src="img/icons/avatar-female.png" class="img-circle sm-hide user-circle" alt='user' 
+                        <img src="img/icons/avatar-{{(Auth::user()->gender== 'M')?'male':'female'}}.png" class="img-circle sm-hide user-circle" alt='user' 
                         style="max-width=45px;max-height: 45px;" />
                     </a>
                     <ul class="dropdown-menu" id='user-icon-dropdown'>
                        <li class="dropdown-header">
-                            <img src="img/icons/avatar-male.png" class="img-circle sm-hide user-circle" alt='user' 
+                            <img src="img/icons/avatar-{{(Auth::user()->gender== 'M')?'male':'female'}}.png" class="img-circle sm-hide user-circle" alt='user' 
                             style="max-width=100px;max-height:100px;" />
                         </li>
                         <b class='lead text-capitalize' >{{Auth::user()->firstName}} {{Auth::user()->middleName}}</b>

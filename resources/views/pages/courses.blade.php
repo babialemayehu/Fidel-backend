@@ -32,7 +32,7 @@
                 @include("pages.course.teacher.weeklySchedule")
             </div>
         @endif
-    </div>
+    </div> 
 </div>
 </div>
 @include('pages.course.teacher.assignment')

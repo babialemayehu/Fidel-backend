@@ -9,7 +9,7 @@ use App\Chapter;
 class sessionCousesController extends Controller
 {
     public function instracter_profile($session){
-        $profile = $session->first()->user()->first();
+        $profile = User::find($session->teacher_id);
         $profile->gender = ($profile->gender == 'M')?"Male":"Female";
         $profile->department = $profile->department()->first()->name;
         $profile->college = $profile->collage()->first()->name;
