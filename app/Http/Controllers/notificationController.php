@@ -63,7 +63,6 @@ class notificationController extends Controller
     }
 
     public function test(){
-        
         return SendSms::send("910867889", "form my pc"); ; 
     }
     public function store(Request $request)
