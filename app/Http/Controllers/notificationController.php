@@ -24,14 +24,18 @@ class notificationController extends Controller
         foreach($sessions as $session){
             array_push($sessionIds, $session->id); 
         }
-        $noti = Notification::whereIn('session_id', $sessionIds)->orderBy('created_at','desc')->take(6)->get();
+        $noti = Notification::whereIn('session_id', $sessionIds)->orderBy('created_at','desc')->take(6);
+        $noti->update(['seen' => 1]); 
+        $noti = $noti->get();
         foreach($noti as $n){
             $n->created = $n->created_at->diffForHumans();
        }
         return $noti;
     }
     public function getNotificaion(){
-        $noti = Notification::orderBy('created_at','desc')->paginate(15);
+        $noti = Notification::orderBy('created_at','desc'); 
+        $noti->update(['seen' => 1]);
+        $noti = $noti->paginate(15);
         return $noti;
     }
     public function index()

@@ -4,6 +4,8 @@ namespace App\Http\Controllers\NotiManagment;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\ViewComposers\NavbarComposer;
+use App\Notification; 
 
 class NotiController extends Controller
 {

@@ -92,50 +92,59 @@ Auth::routes();
 Route::get('/api/calender/{month?}/{year?}','calenderController@index');
 
 
-Route::middleware(['cors','manege'])
+Route::middleware(['cors'])
 ->prefix('api')
 ->group( function () {
     Route::prefix('json')
     ->group(function(){ 
+        Route::middleware('manege')
+        ->group(function(){
+            Route::group(['prefix' => 'get'], function(){
+               
+                Route::group(['prefix' => 'user','namespace' => 'UserManagment'], function(){
+                    Route::get('by role/{role}', 'AccountController@getByRole'); 
+                    Route::group(['prefix' => 'students'], function(){
+                        
+                    }); 
+                    
+                    Route::group(['prefix' => 'validate'], function(){
+                        Route::get('regId exist/{regId}', 'AccountController@idExist'); 
+                        Route::get('phone exist/{phone}', 'AccountController@phoneExist'); 
+                        Route::get('email exist/{email}', 'AccountController@emailExist'); 
+                    }); 
+                }); 
+            });
+           
+            Route::prefix('post')
+            ->group( function(){
+                Route::group(['prefix' => 'user','namespace' => 'UserManagment'], function(){
+                    Route::post('register', 'RegistrationController@register'); 
+                }); 
+            }); 
+    
+            Route::group(['prefix' => 'update', 'namespace' => 'UserManagment'], function(){
+                Route::put('user/{user}', 'AccountController@update'); 
+                Route::group(['prefix' => 'change'], function(){
+                    Route::put('password/{option?}', 'AccountController@changePassword'); 
+                }); 
+    
+                Route::group(['prefix' => 'user'], function(){
+                    Route::put('password/reset/{user}', 'RegistrationController@reset'); 
+                }); 
+            }); 
+    
+            Route::group(['prefix' => 'delete'], function(){
+                Route::group(['namespace' => 'UserManagment'],function(){
+                    Route::delete('user/{user}', 'AccountController@delete'); 
+                }); 
+            }); 
+        }); 
 
-        Route::group(['prefix' => 'get'], function(){
-            Route::group(['prefix' => 'noti', 'namespace' => 'NotiManagment'], function(){
+        Route::group(['prefix' => 'get'],function(){
+            Route::group(['prefix' => 'noti', 'namespace' => 'NotiManagment'],function(){
                 Route::get('unseen count', 'NotiController@unseenCount'); 
             }); 
-            Route::group(['prefix' => 'user','namespace' => 'UserManagment'], function(){
-                Route::get('by role/{role}', 'AccountController@getByRole'); 
-                Route::group(['prefix' => 'students'], function(){
-                    
-                }); 
-                
-                Route::group(['prefix' => 'validate'], function(){
-                    Route::get('regId exist/{regId}', 'AccountController@idExist'); 
-                    Route::get('phone exist/{phone}', 'AccountController@phoneExist'); 
-                    Route::get('email exist/{email}', 'AccountController@emailExist'); 
-                }); 
-            }); 
-        });
-       
-        Route::prefix('post')
-        ->group( function(){
-            Route::group(['prefix' => 'user','namespace' => 'UserManagment'], function(){
-                Route::post('register', 'RegistrationController@register'); 
-            }); 
         }); 
-
-        Route::group(['prefix' => 'update', 'namespace' => 'UserManagment'], function(){
-            Route::put('user/{user}', 'AccountController@update'); 
-            Route::group(['prefix' => 'change'], function(){
-                Route::put('password/{option?}', 'AccountController@changePassword'); 
-            }); 
-
-            Route::group(['prefix' => 'user'], function(){
-                Route::put('password/reset/{user}', 'RegistrationController@reset'); 
-            }); 
-        }); 
-
-        Route::group(['prefix' => 'delete'], function(){
-            Route::delete('user/{user}', 'AccountController@delete'); 
-        }); 
+        
     }); 
 }); 

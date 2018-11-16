@@ -10,7 +10,7 @@
         </button>
         <a href="#notification" class="pull-right lg-hide" style="color:rgba(255,255,255,0.95);margin: 1em 1em 0px 0px;" >
             <i class="fa fa-bell" style="font-size: 1.6em;margin-top:-0.3em" >
-                <sup class="badge" style='font-size:0.6em;margin-left:-12px;margin-top:-9px;' id='noti-counter' >1</sup>
+                <sup class="counter badge" style='font-size:0.6em;margin-left:-12px;margin-top:-9px;' id='noti-counter' ></sup>
             </i>
         </a>
         <a href="#profile" class="lg-hide pull-right" style="color:rgba(255,255,255,0.95);margin: 1em 1em 0px 0px;" >
@@ -38,7 +38,7 @@
                 <li id="nav-notification" class="dropdown custom-dropdown sm-hide">
                     <a class="dropdown-toggle" href="" data-toggle="dropdown" style="padding-bottom:0.1em;color:rgba(255,255,255,0.95)" >
                         <i class="fa fa-bell" style="font-size:1.3em;">
-                            <sup class="badge small" style='margin-left:-10px;margin-top:-9px;' id='noti-counter'>1</sup>
+                            <sup class=" counter badge small" style='margin-left:-10px;margin-top:-9px;' id='noti-counter'></sup>
                         </i>
                     </a>
                     <ul class="dropdown-menu" id='noti-dropdown'>
@@ -136,7 +136,14 @@
         $('#nav-notification').on('click',function(){
             requestRenderRecentNoti(a);
         });
-      
+    
+        setInterval(function(){
+            $.get('/api/json/get/noti/unseen count')
+            .done(function(responce){
+                responce = (responce > 0)? responce: "";  
+                $(".counter").text(''+responce); 
+            });
+        }, 1000); 
         
         
     });
