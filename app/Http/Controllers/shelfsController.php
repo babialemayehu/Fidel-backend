@@ -8,25 +8,17 @@ use Illuminate\Support\Facades\Storage;
 use App\User;
 use App\File;
 use App\Course_session;
+use App\Course; 
 use App\Http\Controllers\notificationController; 
 
 class shelfsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+   
     public function index()
     {
         return view('pages.course.shelf');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         //
@@ -35,12 +27,12 @@ class shelfsController extends Controller
     public function store(Request $request)
     {
         Helper::saveFile($request->file,$request->session);
-        $cource = Course_session::find($request->session)->first()->course()->first(); 
+        $course = Course::find(Course_session::find($request->session)->course_id); 
 
         notificationController::notify(
             'file', 
             'New file was uploaded to the shelf',
-            'New file is uploaded by '.$cource->name.' cource', 
+            'New file is uploaded by '.$course->name.' course', 
             $request->session
         );
         return $request->session;
@@ -60,7 +52,7 @@ class shelfsController extends Controller
     }
     public function show($id)
     {
-       $files = File::where("course_session_id",$id)->get();
+       $files = File::where("course_session_id",$id)->orderBy('created_at','desc')->get();
        foreach($files as $file){
            $file->location = Storage::url($file->location);
            $file->size = $this->formatBytes($file->size); 

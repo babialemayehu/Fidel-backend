@@ -44,7 +44,7 @@
                     <ul class="dropdown-menu" id='noti-dropdown'>
                         <li class="dropdown-header">Notifications</li>
                         <li class="divider" style="margin:0px"></li>
-                        <div class="container">
+                        <div class="container" style="padding: 0px">
                             <div class="alert fade in">
                                     <i class="fa" aria-hidden="true"></i> 
                                     <i></i>                
@@ -100,7 +100,7 @@
                         </a>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">{{ csrf_field() }}</form>
                         @if($role == '1')
-                            <p class='text-center'><a href="#grade report">Grade report</a></p>
+                            <!-- <p class='text-center'><a href="#grade report">Grade report</a></p> -->
                         @endif
                     </ul>
                 </li>
@@ -143,7 +143,7 @@
                 responce = (responce > 0)? responce: "";  
                 $(".counter").text(''+responce); 
             });
-        }, 1000); 
+        }, 5000); 
         
         
     });

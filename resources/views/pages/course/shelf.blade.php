@@ -47,7 +47,9 @@ $(document).ready(function(){
                 session: window.location.href.split('/').pop()
                 },
        onSuccess: function(files,data,xhr,pd){
-           console.log(data);
+            //viewTab('shelf')
+            document.getElementById('outline').click(); 
+            document.getElementById('shelf').click(); 
        },
        dragDropStr:'',
        uploadStr: "<i class='fa fa-upload fa-2x'></i>"

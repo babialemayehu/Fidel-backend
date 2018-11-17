@@ -7,36 +7,33 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\ViewComposers\NavbarComposer;
 use App\Notification;
 use App\User;
-use App\Http\Controllers\Sms\SendSms; 
+use App\Jobs\SendSms; 
+use App\Jobs\SendSessionSms; 
 use App\Course_session; 
+use App\User_notification; 
 
 class notificationController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function getRecentNotification(){
-        $sessions = new NavbarComposer(); 
-        $sessions = $sessions->user_sessions();
-        $sessionIds = []; 
-        foreach($sessions as $session){
-            array_push($sessionIds, $session->id); 
-        }
-        $noti = Notification::whereIn('session_id', $sessionIds)->orderBy('created_at','desc')->take(6);
-        $noti->update(['seen' => 1]); 
-        $noti = $noti->get();
+    public static function userNotifications($limit =  -1){
+        $noti = Auth::user()->notifications()->orderBy('created_at','desc'); 
+
+        if($limit != -1){ $noti = $noti->take($limit)->get(); }
+        else{ $noti = $noti->get(); }
+
         foreach($noti as $n){
             $n->created = $n->created_at->diffForHumans();
-       }
-        return $noti;
+            $user_noti = $n->user_notification(); 
+            $n->seen = $user_noti->first()->seen; 
+            $user_noti->update(['seen' => 1]); 
+        }
+    
+        return $noti; 
+    }
+    public function getRecentNotification(){  
+        return notificationController::userNotifications(6);
     }
     public function getNotificaion(){
-        $noti = Notification::orderBy('created_at','desc'); 
-        $noti->update(['seen' => 1]);
-        $noti = $noti->paginate(15);
-        return $noti;
+        return  Auth::user()->notifications()->orderBy('created_at','desc')->paginate(15);
     }
     public function index()
     {
@@ -61,13 +58,29 @@ class notificationController extends Controller
             'content' => $content, 
             'session_id' => $session_id
         ]);
-        SendSms::sendToSession($noti->session_id, $noti->type."\n".$noti->title."\n".$noti->content);
+        
+        $group = $noti->session()->first()->group()->first();
+        $users = $group->users()->get(); 
+        foreach($users as $user){
+            User_notification::create([
+                'notification_id' => $noti->id, 
+                'user_id' => $user->id
+            ]); 
+        }
+        User_notification::create([
+            'notification_id' => $noti->id, 
+            'user_id' => Auth::id()
+        ]); 
+        SendSessionSms::dispatch(
+            $noti->session_id, 
+            $noti->type."\n".$noti->title."\n".$noti->content);
+
         return $noti;
 
     }
 
     public function test(){
-        return SendSms::send("910867889", "form my pc"); ; 
+        return SendSms::dispatch("910867889", "form my pc queue debug"); ; 
     }
     public function store(Request $request)
     {

@@ -58,4 +58,12 @@ class User extends Authenticatable
     public function sessions(){
         return $this->hasMany('App\Course_session','teacher_id'); 
     }
+
+    public function notifications(){
+        return $this->belongsToMany("App\Notification", 'user_notifications'); 
+    }
+
+    public function user_notification(){
+        return $this->hasMany('App\User_notification'); 
+    }
 }

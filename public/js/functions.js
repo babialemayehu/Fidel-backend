@@ -444,7 +444,13 @@
         }
 
         function renderNotiRow(continer, noti) {
+            
             var _li = $('<li></li>').appendTo(continer);
+
+            if(noti.seen == 1){    
+                _li.addClass("disable");
+            }
+
             var row = $('<div></div>', { class: 'row' }).appendTo(_li);
 
             var col1 = $('<div></div>', { class: 'col-sm-1' }).appendTo(row);
@@ -463,6 +469,7 @@
             notiContainer.children('li').remove();
             waitingAlert(a, 'Loding notificaions...');
             $.get('/recentNotification', function(data) {
+                console.log(data);
                 data.forEach(function(noti) {
                     renderNotiRow(notiContainer, noti);
                 });
@@ -577,13 +584,18 @@
                 panel = $('<div></div>', { class: 'panel panel-default' }).prependTo(notiGroup);
             else
                 panel = $('<div></div>', { class: 'panel panel-default' }).appendTo(notiGroup);
+
+            if(noti.seen == 1){
+                panel.css("box-shadow", "none"); 
+                panel.css('background', "#efefef"); 
+            }
             var media = $('<div></div>', { class: 'media' }).appendTo(panel);
             var mediaImg = $('<div></div>', { class: 'media-left media-middle' }).appendTo(media);
             $('<img>', { src: 'img/icons/' + noti.type + '.png', class: 'media-object', tag: noti.type }).appendTo(mediaImg);
             var mediaBody = $('<div></div>', { class: 'media-body' }).appendTo(media);
-            $('<h4></h4>', { class: 'media-heading', text: noti.title }).appendTo(mediaBody);
+            $('<h4></h4>', { class: 'media-heading', text: noti.title}).appendTo(mediaBody);
             $('<span></span>', { text: noti.content }).appendTo(mediaBody);
-            var _span = $('<span></span>', { text: noti.user_id }).appendTo(mediaBody);
+            var _span = $('<span></span>', { text: noti.created_at }).appendTo(mediaBody);
             if (userId == noti.user_id) {
                 $('<i class="fa fa-edit pull-right" data-toggle=modal data-target=#editNotiModal ></i>').appendTo(_span);
                 $('<i class="fa fa-trash pull-right" data-toggle=modal data-target=#confirm></i>').appendTo(_span);
