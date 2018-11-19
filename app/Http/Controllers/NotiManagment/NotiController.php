@@ -12,7 +12,7 @@ use App\Notification;
 class NotiController extends Controller
 {
     public function unseenCount(){
-        return Auth::user()->user_notification()->get()->count(); 
+        return Auth::user()->user_notification()->where('seen', 0)->get()->count(); 
     }
 
     

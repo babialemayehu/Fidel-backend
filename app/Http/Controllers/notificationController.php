@@ -11,6 +11,7 @@ use App\Jobs\SendSms;
 use App\Jobs\SendSessionSms; 
 use App\Course_session; 
 use App\User_notification; 
+use Carbon\Carbon; 
 
 class notificationController extends Controller
 {
@@ -22,7 +23,7 @@ class notificationController extends Controller
 
         foreach($noti as $n){
             $n->created = $n->created_at->diffForHumans();
-            $user_noti = $n->user_notification(); 
+            $user_noti = Auth::user()->user_notification()->where("notification_id", $n->id); 
             $n->seen = $user_noti->first()->seen; 
             $user_noti->update(['seen' => 1]); 
         }
@@ -40,11 +41,6 @@ class notificationController extends Controller
         return view('pages.notification');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
            return 'create';
@@ -71,17 +67,27 @@ class notificationController extends Controller
             'notification_id' => $noti->id, 
             'user_id' => Auth::id()
         ]); 
-        SendSessionSms::dispatch(
-            $noti->session_id, 
-            $noti->type."\n".$noti->title."\n".$noti->content);
 
+        $job = (new SendSessionSms( 
+                    $noti->session_id, 
+                    $noti->type."\n".$noti->title."\n".$noti->content, 
+                    Auth::id()
+                    ))
+            ->delay(Carbon::now()->addSecond(1));
+
+        dispatch($job);
         return $noti;
 
     }
 
     public function test(){
-        return SendSms::dispatch("910867889", "form my pc queue debug"); ; 
+     SendSms::dispatch("910867889", "form my pc queue debug")->delay(
+            Carbon::now()->addSecond(5)
+        ); 
+        return "Hellow "; 
+        
     }
+
     public function store(Request $request)
     {
          $newNoti = notificationController::notify(

@@ -31,7 +31,6 @@ class RegistrationController extends Controller
         ]);
     }
 
-
     public function role($user_id, $role_id){
         User_role::create([
             'user_id' => $user_id, 

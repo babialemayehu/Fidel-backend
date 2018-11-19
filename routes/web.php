@@ -7,7 +7,7 @@ Route::get('/login',function(){
 Route::get('/home', function(){
     return redirect('/'); 
 }); 
-Route::get('/test','notificationController@userNotifications');
+Route::get('/test','notificationController@test');
 Route::group(['middleware' => ['auth']], function () {
 
     // angular 

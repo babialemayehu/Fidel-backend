@@ -7,7 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Sms extends Model
 {
-    public $protected = ["message", "reciver_id", "sender_id"]; 
+    public $fillable = [ 
+                            'message',
+                            'reciver_id',
+                            'sender_id',
+                            'sent'
+                        ];
 
     public function reciver(){
         return $this->belongsTo("\App\User", "reciver_id"); 

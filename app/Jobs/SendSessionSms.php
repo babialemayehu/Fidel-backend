@@ -11,16 +11,19 @@ use App\Jobs\SendSms;
 use App\Course_session; 
 use App\User;
 use App\Sms;
+
 class SendSessionSms implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
     public $session_id; 
     public $message; 
+    public $sender; 
 
-    public function __construct($session_id, $message)
+    public function __construct($session_id, $message, $sender)
     {
         $this->session_id = $session_id; 
         $this->message = $message; 
+        $this->sender = $sender; 
     }
 
     public function handle()
@@ -29,8 +32,8 @@ class SendSessionSms implements ShouldQueue
        
         foreach($users as $user){
            // SendSms::send((string)$user->phone, (string)$message); 
-            SendSms::dispatch( $user->phone, $this->message); 
-            sleep(5); 
+            SendSms::dispatch( $user->phone, $this->message,  $this->sender); 
+            //sleep(5); 
         }
     }
 }
