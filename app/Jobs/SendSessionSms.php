@@ -35,7 +35,6 @@ class SendSessionSms implements ShouldQueue
            // SendSms::send((string)$user->phone, (string)$message); 
             SendSms::dispatch( $user->phone, $this->message,  $this->sender)
             ->delay(Carbon::now()->addSecond(1));; 
-            //sleep(5); 
         }
     }
 }
