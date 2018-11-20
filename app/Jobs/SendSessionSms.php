@@ -11,6 +11,7 @@ use App\Jobs\SendSms;
 use App\Course_session; 
 use App\User;
 use App\Sms;
+use Carbon\Carbon; 
 
 class SendSessionSms implements ShouldQueue
 {
@@ -32,7 +33,8 @@ class SendSessionSms implements ShouldQueue
        
         foreach($users as $user){
            // SendSms::send((string)$user->phone, (string)$message); 
-            SendSms::dispatch( $user->phone, $this->message,  $this->sender); 
+            SendSms::dispatch( $user->phone, $this->message,  $this->sender)
+            ->delay(Carbon::now()->addSecond(1));; 
             //sleep(5); 
         }
     }

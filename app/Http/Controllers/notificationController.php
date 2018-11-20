@@ -68,20 +68,18 @@ class notificationController extends Controller
             'user_id' => Auth::id()
         ]); 
 
-        $job = (new SendSessionSms( 
-                    $noti->session_id, 
-                    $noti->type."\n".$noti->title."\n".$noti->content, 
-                    Auth::id()
-                    ))
-            ->delay(Carbon::now()->addSecond(1));
+       SendSessionSms::dispatch( 
+                        $noti->session_id, 
+                        $noti->type."\n".$noti->title."\n".$noti->content, 
+                        Auth::id()
+                    )->delay(Carbon::now()->addSecond(1));
 
-        dispatch($job);
         return $noti;
 
     }
 
     public function test(){
-     SendSms::dispatch("910867889", "form my pc queue debug")->delay(
+     SendSms::dispatch("910867889", "form my pc queue debug",  Auth::id())->delay(
             Carbon::now()->addSecond(5)
         ); 
         return "Hellow "; 
