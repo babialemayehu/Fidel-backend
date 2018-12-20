@@ -13,34 +13,19 @@ use Carbon\Carbon;
 
 class submitedAssignmentsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+ 
     public function index()
     {
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        $file = Helper::saveFile($request->file,$request->session_id);     
+        $file = Helper::saveFile($request->file,$request->session_id, 1);     
         // $submit = new Submited_assignment;
         // if(!$submit->where("student_id", Auth::id())->where("assignment_id",$request->assignment)){
         //       $submit = Submited_assignment::where("student_id", Auth::id())->where("assignment_id",$request->assignment);            

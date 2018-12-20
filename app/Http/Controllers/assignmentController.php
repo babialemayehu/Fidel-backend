@@ -65,7 +65,7 @@ class assignmentController extends Controller
         ->first()->course()->first(); 
         
         notificationController::notify('assignment', 
-            'You have new '.$courcep->name.'course assignment',
+            'You have new '.$cource->name.'course assignment',
             'New '.$cource->name. ' cource assignment was out. 
             Its due date is '.Carbon::parse($assignment->due)->stringFormat.'
             and It is out of '.$assignment->value.'%',

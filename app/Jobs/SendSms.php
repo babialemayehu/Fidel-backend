@@ -13,6 +13,7 @@ use App\User;
 use App\Sms;
 use App\Mail\Password; 
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Log;
 
 class SendSms implements ShouldQueue
 {
@@ -31,8 +32,8 @@ class SendSms implements ShouldQueue
     public function handle()
     {
         //SendSms::send($this->phone, $this->message); 
-        //$responce = shell_exec("python3 ../python/smss.py +251$this->phone \"$this->message\""); 
-         $responce = true; 
+        $r = shell_exec("python3 ./python/smss.py +251$this->phone \"$this->message\""); 
+        $responce = true; 
         // Mail::to('eba@gail.com')->send(new Password("LDFk")); 
         $sms = Sms::create([
             'message' => $this->message,
@@ -40,6 +41,7 @@ class SendSms implements ShouldQueue
             'sender_id' => $this->sender,
             'sent' => (json_decode(json_encode($responce)) == true)
         ]); 
+        Log::info($r); 
         return $sms->sent; 
     }
 }

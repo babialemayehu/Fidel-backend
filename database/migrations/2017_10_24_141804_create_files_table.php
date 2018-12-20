@@ -22,6 +22,7 @@ class CreateFilesTable extends Migration
             $table->integer('size');
             $table->integer('user_id');
             $table->integer('course_session_id')->nullable;
+            $table->integer('loc')->default(0); 
             $table->timestamps();
         });
     }

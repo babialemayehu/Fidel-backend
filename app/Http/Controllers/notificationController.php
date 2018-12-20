@@ -12,7 +12,7 @@ use App\Jobs\SendSessionSms;
 use App\Course_session; 
 use App\User_notification; 
 use Carbon\Carbon; 
-
+use App\Http\Controllers\Sms\SendSms as Send;
 class notificationController extends Controller
 {
     public static function userNotifications($limit =  -1){
@@ -79,10 +79,11 @@ class notificationController extends Controller
     }
 
     public function test(){
-     SendSms::dispatch("910867889", "form my pc queue debug",  Auth::id())->delay(
-            Carbon::now()->addSecond(5)
-        ); 
-        return "Hellow "; 
+
+    //  SendSms::dispatch("910867889", "form my pc queue debug",  Auth::id())->delay(
+    //         Carbon::now()->addSecond(5)
+    //     ); 
+        SendSms::dispatch("910867889", "form my pc queue debug",1); 
         
     }
 

@@ -52,7 +52,9 @@ class shelfsController extends Controller
     }
     public function show($id)
     {
-       $files = File::where("course_session_id",$id)->orderBy('created_at','desc')->get();
+       $files = File::where("course_session_id",$id)
+                    ->where('loc', 0)
+                    ->orderBy('created_at','desc')->get();
        foreach($files as $file){
            $file->location = Storage::url($file->location);
            $file->size = $this->formatBytes($file->size); 

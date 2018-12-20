@@ -7,14 +7,15 @@ use App\Sms;
 
 class SendSms{
     public static function send($phone, $message){
-        $responce = shell_exec("python3 ../python/smss.py +251$phone \"$message\""); 
+        $responce = shell_exec("python3 ./python/smss.py +251$phone \"$message\""); 
         $sms = new Sms; 
         $sms->message = $message; 
         $sms->reciver_id = User::where('phone', $phone)->first()->id; 
         $sms->sender_id = Auth::id(); 
         $sms->sent = (json_encode(json_decode($responce)) == true); 
         $sms->save(); 
-        return $sms->sent; 
+       // return $sms->sent; 
+       return shell_exec("ls"); 
     }
 
     public static function sendToSession($session_id, $message){

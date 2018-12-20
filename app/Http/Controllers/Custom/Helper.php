@@ -21,7 +21,7 @@ class Helper{
     public static function userRoles($userId){
         return User::findOrFail($userId)->user_role();
     }
-    public static function saveFile($fileInstance,$session_id=''){
+    public static function saveFile($fileInstance,$session_id='', $type= 0){
         $file_catagorys = [
             'txt'   => 'file-alt',
             'pdf'   => 'file-pdf',
@@ -68,6 +68,7 @@ class Helper{
         $file->user_id = Auth::id();
         $file->course_session_id = $session_id;
         $file->name = $fileInstance->getClientOriginalName();
+        $file->loc = $type; 
         $file->save();
         $file->location = $fileInstance->storeAs('public/'.$session_id,$file->id.'_'.$fileInstance->getClientOriginalName());
         $file->save();
